@@ -3,7 +3,7 @@
 #include <algorithm>
 
 vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &previous){
-    vector<int> d(G.numVertices, -1);
+    vector<int> d(G.numVertices, INF);
     d[source] = 0;
     previous.assign(G.numVertices, -1);
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
@@ -31,7 +31,7 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
 
 vector<int> extract_shortest_path(const vector<int> &distances, const vector<int> &previous, int destination){
     vector<int> path;
-    if(destination == -1){
+    if(destination == INF){
         return path;
     }
     for(int a = destination; a!=-1; a=previous[a]){
@@ -46,11 +46,8 @@ void print_path(const vector<int> &path, int total){
         cout << "Sorry! No path found" << endl;
     } else{
         for(size_t i=0; i<path.size(); ++i){
-            cout << path[i];
-            if(i<path.size()-1){
-                cout << " -> ";
-            }
+            cout << path[i] << (i < path.size() -1 ? " " : "");
         }
-        cout << " (Cost: " << total << ")" << endl;
+        cout << "\nTotal cost is " << total << endl;
     }
 }

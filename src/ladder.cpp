@@ -1,7 +1,7 @@
 #include "ladder.h"
 
 void error(string word1, string word2, string msg){
-    cerr << "Error: " << msg << word1 << " to " << word2 << endl
+    cerr << "Error: " << msg << word1 << " to " << word2 << endl;
 }
 
 bool edit_distance_within(const string &str1, const string &str2, int d){
@@ -14,12 +14,12 @@ bool edit_distance_within(const string &str1, const string &str2, int d){
     int i = 0;
     int j = 0;
     while(i<l1 && j<l2){
-        if(str1[i] != str[j]){
+        if(str1[i] != str2[j]){
             if(++difference > d){
                 return false;
             }
             if(l1>l2){
-                i++
+                i++;
             } else if(l1<l2){
                 j++;
             } else {
@@ -42,12 +42,13 @@ void load_words(set<string> &word_list, const string &file_name){
     ifstream file(file_name);
     if(!file){
         cerr << "Error: Could not open file " << file_name << endl;
-        exit();
+    } else{
+        string word;
+        while(file>>word){
+            word_list.insert(word);
     }
-    string word;
-    while(file>>word){
-        word_list.insert(word);
     }
+    
     file.close();
 }
 
@@ -65,8 +66,8 @@ vector<string> generate_word_ladder(const string &begin_word, const string &end_
         string last = l.back();
 
         for(const auto &w : word_list){
-            if(is_adjacent(last, w) && !v.count(w)){
-                v.insert(w);
+            if(is_adjacent(last, w) && !a.count(w)){
+                a.insert(w);
                 auto n = l;
                 n.push_back(w);
                 if(w==end_word){

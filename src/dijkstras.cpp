@@ -16,6 +16,7 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
         if(dist > d[i]){
             continue;
         }
+
         for(const Edge &e : G[i]){
             int v = e.dst;
             int weight = e.weight;
@@ -26,6 +27,7 @@ vector<int> dijkstra_shortest_path(const Graph &G, int source, vector<int> &prev
             }
         }
     }
+
     return d;
 }
 
@@ -42,12 +44,8 @@ vector<int> extract_shortest_path(const vector<int> &distances, const vector<int
 }
 
 void print_path(const vector<int> &path, int total){
-    if(path.empty()){
-        cout << "Sorry! No path found" << endl;
-    } else{
         for(size_t i=0; i<path.size(); ++i){
             cout << path[i] << " ";
         }
         cout << "\nTotal cost is " << total << endl;
-    }
 }
